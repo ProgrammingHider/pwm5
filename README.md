@@ -26,11 +26,11 @@ Patches
 * **bash statusbar script**
 * **Useless Gaps**
 * **Center**
-* **Fibonaticy**
+* **Fibonacci**
 
 Statusbar Bash Script
 ---------------------
-* *Features*
+ *Features*
 
 * **CPU, Memory, Swap usage**
 * **Network throughput and wireless signal strength**
