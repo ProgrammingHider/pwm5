@@ -7,6 +7,7 @@
 		╚═╝      ╚══╝╚══╝ ╚═╝     ╚═╝    ╚══════╝╚═╝ ╚════╝ ╚═╝╚══════╝
 ```
 =====================
+
 PWM 5.8.2 (Prepatched Dynamic Window Manager)
 
 Original Author: dbro
