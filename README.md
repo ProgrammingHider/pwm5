@@ -32,7 +32,6 @@ Patches
 * **Useless Gaps**
 * **Center**
 * **Fibonaticy**
-* **Alpha**
 
 Statusbar Bash Script
 ---------------------

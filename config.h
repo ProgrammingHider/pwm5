@@ -15,6 +15,9 @@ static const char colors[NUMCOLORS][ColLast][8] = {
    { "#000000", "#ff0000", "#000000" }, // 5 = statusbar critical level
    { "#ff6600", "#000000", "#ff0000" }, // 6 = statusbar critical level flashing
 };
+
+static unsigned int baralpha	    = 0xd0;
+static unsigned int borderalpha	    = OPAQUE;
 static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappx     = 6;        /* gap pixel between windows */

@@ -19,9 +19,11 @@ XFTINC = -I/usr/include/freetype2
 XFTLIBS = -L${X11LIB} -lXft
 XFTFLAGS = -DXFT
 
+FREETYPEINC = /usr/include/freetype2
+
 # includes and libs
-INCS = -I. -I/usr/include -I${X11INC} ${XFTINC}
-LIBS = -L/usr/lib -lc -L${X11LIB} -lX11 ${XINERAMALIBS} ${XFTLIBS}
+INCS = -I. -I/usr/include -I${X11INC} ${XFTINC} 
+LIBS = -L/usr/lib -lc -L${X11LIB} -lX11 ${XINERAMALIBS} ${XFTLIBS} ${FREETYPELIBS} -lXrender
 
 # flags
 CPPFLAGS = -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS} ${XFTFLAGS}
