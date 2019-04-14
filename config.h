@@ -3,27 +3,54 @@
 #include "fibonacci.c"
 
 /* appearance */
-static const char font[]            = "inconsolata:size=15";
+static const char fonts[] = {
+	/*"termsynu:size=12",*/
+	"DejaVu Sans:pixelsize=10",
+};
 #define NUMCOLORS 7                     // need at least 3
 static const char colors[NUMCOLORS][ColLast][8] = {
    // border   foreground  background
-   { "#cccccc", "#888888", "#000000" }, // 0 = normal
-   { "#cc0000", "#ffff00", "#000000" }, // 1 = selected
-   { "#ff6600", "#000000", "#ff6600" }, // 2 = urgent/warning
-   { "#000000", "#ffffff", "#000000" }, // 3 = window title text
-   { "#000000", "#ffffff", "#000000" }, // 4 = statusbar elevated level
-   { "#000000", "#ff0000", "#000000" }, // 5 = statusbar critical level
-   { "#ff6600", "#000000", "#ff0000" }, // 6 = statusbar critical level flashing
+   //
+   { "#0b1c2c", "#627e99", "#0b1c2c" }, // 0 = normal
+   { "#8b56bf", "#ffffff", "#8b56bf" }, // 1 = selected
+   { "#0b1c2c", "#627e99", "#0b1c2c" }, // 2 = urgent/warning
+   { "#0b1c2c", "#627e99", "#0b1c2c" }, // 3 = window title text
+   { "#0b1c2c", "#627e99", "#0b1c2c" }, // 4
+   { "#0b1c2c", "#627e99", "#0b1c2c" }, // 5
+   { "#0b1c2c", "#627e99", "#0b1c2c" }, // 6
+
 };
 
 static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int gappx     = 6;        /* gap pixel between windows */
+static const unsigned int gappx     = 25;        /* gap pixel between windows */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = {
+		"terminal",
+		"firefox",
+		"vim",
+		"mpv",
+		"steam",
+		"random" 
+/*
+		"",
+		"",
+		"",
+		"",
+		"",
+		""
+
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6"
+*/
+};
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask   iscentered   isfloating   monitor */
@@ -59,45 +86,13 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *lockscreencmd[]  = { "slock", NULL };
-static const char *browsercmd[]     = { "google-chrome", NULL };
-static const char *browseraltcmd[]  = { "firefox", NULL };
-static const char *filemgrcmd[]     = { "thunar", NULL };
-static const char *netmgrcmd[]      = { "xterm", "-e", "wicd-curses", NULL };
-static const char *screenshotcmd[]  = { "scrot", NULL };
-/* static const char *editorcmd[]      = { "vim", NULL }; */
-static const char *musicplay[]      = { "muss", "-p", NULL };
-static const char *musicstop[]      = { "muss", "-s", NULL };
-static const char *musicnext[]      = { "muss", "-n", NULL };
-static const char *musicback[]      = { "muss", "-b", NULL };
-static const char *musickcrw[]      = { "muss", "kcrw-live", NULL };
-static const char *musickcrwalt[]   = { "muss", "kcrw-music", NULL };
-static const char *volumeup[]       = { "amixer", "-q", "sset", "Master", "5+", NULL };
-static const char *volumedown[]     = { "amixer", "-q", "sset", "Master", "5-", NULL };
-static const char *volumemute[]     = { "amixer", "-q", "sset", "Master", "toggle", NULL };
-
+static const char *dmenucmd[] = { "spawn_rofi", NULL };
+static const char *termcmd[]  = { "xfce4-terminal", NULL };
 #include "movestack.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-        { MODKEY,                       XK_q,      spawn,          {.v = lockscreencmd } },
-        { MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
-        { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = browseraltcmd } },
-        { MODKEY,                       XK_e,      spawn,          {.v = filemgrcmd } },
-        { MODKEY|ShiftMask,             XK_n,      spawn,          {.v = netmgrcmd } },
-        { 0,                            XK_Print,  spawn,          {.v = screenshotcmd } },
-        { MODKEY,                       XK_Up,     spawn,          {.v = musicplay } },
-        { MODKEY,                       XK_Down,   spawn,          {.v = musicstop } },
-        { MODKEY,                       XK_Right,  spawn,          {.v = musicnext } },
-        { MODKEY,                       XK_Left,   spawn,          {.v = musicback } },
-        { MODKEY,                       XK_s,      spawn,          {.v = musickcrw } },
-        { MODKEY|ShiftMask,             XK_s,      spawn,          {.v = musickcrwalt } },
-        { 0,                            0x1008ff13,spawn,          {.v = volumeup } },
-        { 0,                            0x1008ff11,spawn,          {.v = volumedown } },
-        { 0,                            0x1008ff12,spawn,          {.v = volumemute } },
+	{ MODKEY, 	                XK_Return, spawn,          {.v = termcmd } },
         { MODKEY,                       XK_u,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -105,13 +100,15 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_F1,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_F2,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_F3,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY, 	                XK_F4,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY, 			XK_F5,	    setlayout,	   {.v = &layouts[4]} },
+	{ MODKEY,			XK_F6,	   setlayout,	   {.v = &layouts[5]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
