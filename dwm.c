@@ -282,6 +282,7 @@ static Display *dpy;
 static DC dc;
 static Monitor *mons = NULL, *selmon = NULL;
 static Window root;
+static int globalborder ;
 #ifdef XFT
 static XftDraw *xftdraw;
 #endif
@@ -1434,16 +1435,21 @@ void
 resize(Client *c, int x, int y, int w, int h, Bool interact) {
 	if(applysizehints(c, &x, &y, &w, &h, interact))
 		resizeclient(c, x, y, w, h);
+
+	if(c->isfloating || selmon->lt[selmon->sellt]->arrange == NULL) { globalborder = 0 ; }
+	else {
+		if (selmon->lt[selmon->sellt]->arrange == monocle) { globalborder = 0 - borderpx ; }
+		else { globalborder =  gappx ; }
+	}
 }
 
 void
 resizeclient(Client *c, int x, int y, int w, int h) {
 	XWindowChanges wc;
-
-	c->oldx = c->x; c->x = wc.x = x;
-	c->oldy = c->y; c->y = wc.y = y;
-	c->oldw = c->w; c->w = wc.width = w;
-	c->oldh = c->h; c->h = wc.height = h;
+		c->x = wc.x = x + globalborder;
+		c->y = wc.y = y + globalborder;
+		c->w = wc.width = w - 2 * globalborder ;
+		c->h = wc.height = h - 2 * globalborder ;
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
 	configure(c);

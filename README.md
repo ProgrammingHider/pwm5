@@ -29,6 +29,10 @@ Patches
 * **Different Tag Names**
 * **Different Window Color**
 * **bash statusbar script**
+* **Useless Gaps**
+* **Center**
+* **Fibonaticy**
+* **Alpha**
 
 Statusbar Bash Script
 ---------------------
