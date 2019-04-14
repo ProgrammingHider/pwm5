@@ -77,8 +77,8 @@ do
   else
     WLAN_PCT=0
   fi
-  NETUP_RATE=$(( ($NETUP - $NETUP_PREV) * 100 / ($TICKS_NOW - $TICKS_PREV)  ))
-  NETDN_RATE=$(( ($NETDN - $NETDN_PREV) * 100 / ($TICKS_NOW - $TICKS_PREV)  ))
+#  NETUP_RATE=$(( ($NETUP - $NETUP_PREV) * 100 / ($TICKS_NOW - $TICKS_PREV)  ))
+#  NETDN_RATE=$(( ($NETDN - $NETDN_PREV) * 100 / ($TICKS_NOW - $TICKS_PREV)  ))
 
   if which acpi > /dev/null
   then
@@ -191,7 +191,7 @@ do
     BATT=""
   fi
  
-  xsetroot -name "$MUSIC$SEP$SYS$SEP$WLAN$NET$BATT$SEP$DATE"
+  xsetroot -name "$DATE"
 
   # Store the current values to prepare for next loop's rate calculations
   TICKS_PREV=$TICKS_NOW
