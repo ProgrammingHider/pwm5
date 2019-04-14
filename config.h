@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 #include "bstackhoriz.c"
+#include "fibonacci.c"
 
 /* appearance */
 static const char font[]            = "inconsolata:size=15";
@@ -24,11 +25,11 @@ static const Bool topbar            = True;     /* False means bottom bar */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
-    /* { "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 }, */
-    { "Skype",    NULL,       NULL,       0,            True,        -1 },
-    { "Vlc",      NULL,       NULL,       0,            True,        -1 },
+	/* class      instance    title       tags mask   iscentered   isfloating   monitor */
+	{ "Gimp",     NULL,       NULL,       0,          0, 	       True,        -1 },
+    /*  { "Firefox",  NULL,       NULL,       1 << 8,     0,           False,       -1 }, */
+        { "Skype",    NULL,       NULL,       0,          0,           True,        -1 },
+        { "Vlc",      NULL,       NULL,       0,          0,           True,        -1 },
 };
 
 /* layout(s) */
@@ -41,6 +42,8 @@ static const Layout layouts[] = {
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 	{ "===",      bstackhoriz },
+	{ "[@]",      spiral },
+	{ "[\\]",      dwindle},
 };
 
 /* key definitions */

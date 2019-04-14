@@ -92,7 +92,7 @@ struct Client {
 	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
 	int bw, oldbw;
 	unsigned int tags;
-	Bool isfixed, isfloating, isurgent, oldstate;
+	Bool isfixed, isfloating, isurgent, oldstate, isfullscreen, neverfocus, iscentered;
 	Client *next;
 	Client *snext;
 	Monitor *mon;
@@ -154,7 +154,7 @@ typedef struct {
 	const char *instance;
 	const char *title;
 	unsigned int tags;
-	Bool isfloating;
+	Bool isfloating, iscentered;
 	int monitor;
 } Rule;
 
@@ -314,6 +314,7 @@ applyrules(Client *c) {
 			&& (!r->instance || strstr(instance, r->instance)))
 			{
 				c->isfloating = r->isfloating;
+				c->iscentered = r->iscentered;
 				c->tags |= r->tags;
 				for(m = mons; m && m->num != r->monitor; m = m->next);
 				if(m)
@@ -1232,7 +1233,12 @@ manage(Window w, XWindowAttributes *wa) {
 		c->y = MAX(c->y, ((c->mon->by == 0) && (c->x + (c->w / 2) >= c->mon->wx)
 		           && (c->x + (c->w / 2) < c->mon->wx + c->mon->ww)) ? bh : c->mon->my);
 		c->bw = borderpx;
+		if(c->iscentered) {
+		c->x = (c->mon->mw - WIDTH(c)) / 2;
+		c->y = (c->mon->mh - HEIGHT(c)) / 2;
 	}
+	}
+
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
 	XSetWindowBorder(dpy, w, dc.colors[0][ColBorder]);
